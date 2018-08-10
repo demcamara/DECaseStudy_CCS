@@ -1,0 +1,14 @@
+***********************************************CDW_SAPP_CREDITCARD***************************
+sqoop import 
+--connect jdbc:mysql://localhost/CDW_SAPP
+--driver com.mysql.jdbc.Driver 
+--username root 
+--password password 
+--query "SELECT CREDIT_CARD_NO, CONCAT(YEAR,LPAD(MONTH,2,0), LPAD(DAY,2,0)),
+CUST_SSN, BRANCH_CODE, TRANSACTION_TYPE,TRANSACTION_VALUE, TRANSACTION_ID
+from CDW_SAPP_CREDITCARD WHERE\$CONDITIONS" 
+--split-by BRANCH_CODE
+--target-dir /user/DECaseStudy/Credit_Card_System/STAGING_CDW_SAPP_CREDITCARD
+--fields-terminated-by ','
+
+*********************************************************************************************

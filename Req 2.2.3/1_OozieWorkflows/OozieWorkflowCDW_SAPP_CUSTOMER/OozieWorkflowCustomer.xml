@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="copy-data-from-external-to-orc">
+    <start to="sqoopcustomer_node"/>
+
+    <action name="sqoopcustomer_node">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+
+            <prepare>
+              <delete path="${nameNode}/user/DECaseStudy/Credit_Card_System/CDW_SAPP_CUSTOMER"/>
+            </prepare>
+
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+  <command> job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --exec Cdw_CustomerJob</command>        
+      
+      <archive>/user/maria_dev/lib/java-json.jar#java-json.jar</archive>
+        </sqoop>    
+
+      <ok to="Create_STAGING_CDW_SAPP_CUSTOMER" />
+      <error to="kill_job" />
+   </action>
+   
+   <action name="Create_STAGING_CDW_SAPP_CUSTOMER">
+      <hive xmlns="uri:oozie:hive-action:0.4">
+        <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/internal_table_customer.hive</script>
+      </hive>
+
+      <ok to="Create_CDW_SAPPCUSTOMER"/>
+        <error to="fail"/>
+    </action>
+  <kill name="fail">
+        <message> Workflow failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    
+   <action name="Create_CDW_SAPPCUSTOMER">
+      <hive xmlns="uri:oozie:hive-action:0.4">
+         <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/cdw_sapp_customer.hive</script>
+      </hive>
+    
+      <ok to="Insert_into_Table" />
+      <error to="kill_job" />
+   </action>
+   
+   <action name="Insert_into_Table">
+      <hive xmlns = "uri:oozie:hive-action:0.4">
+         <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/copyCustomerData.hql</script>
+        
+      </hive>
+    
+      <ok to="end" />
+      <error to="kill_job" />
+   </action>
+   
+   <kill name="kill_job">
+      <message>Job customerJob failed</message>
+   </kill>
+  
+   <end name="end" />
+</workflow-app>

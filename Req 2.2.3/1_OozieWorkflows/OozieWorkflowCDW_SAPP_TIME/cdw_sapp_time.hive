@@ -1,0 +1,13 @@
+SET hive.exec.dynamic.partition = true; 
+SET hive.exec.dynamic.partition.mode = nonstrict;
+
+CREATE EXTERNAL TABLE CDW_SAPPTIME
+(TIMEID VARCHAR(8),
+ DAY INT,
+ MONTH INT,
+ YEAR INT)
+PARTITIONED BY (QUARTER VARCHAR(8))
+
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
+STORED AS TEXTFILE 
+LOCATION "/user/DECaseStudy/Credit_Card_System/OozieWorks/ExtCDW_SAPPTIME";

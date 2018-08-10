@@ -1,0 +1,13 @@
+************************CDW_SAPP_BRANCH****************************************************
+sqoop job 
+--meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop 
+--create Cdw_BranchJob
+-- import 
+--connect jdbc:mysql://localhost/CDW_SAPP
+--driver com.mysql.jdbc.Driver 
+--query 'SELECT BRANCH_CODE, BRANCH_NAME, BRANCH_STREET, BRANCH_CITY, BRANCH_STATE, 
+ BRANCH_ZIP, CONCAT ("(",LEFT(BRANCH_PHONE,3), ")", SUBSTRING(BRANCH_PHONE, 4,3), "-", right(BRANCH_PHONE, 4)),
+LAST_UPDATED FROM CDW_SAPP_BRANCH
+--target-dir /user/DECaseStudy/Credit_Card_System/OozieWorks/CDW_SAPP_BRANCH
+-m1
+*******************************************************************************************

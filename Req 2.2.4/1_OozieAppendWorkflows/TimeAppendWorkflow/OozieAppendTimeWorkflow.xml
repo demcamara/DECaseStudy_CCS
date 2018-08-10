@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="Append-Time">
+    <start to="sqooptime_node"/>
+
+    <action name="sqooptime_node">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+           
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+  <command> job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --exec Cdw_UpdateTimeJob</command>         
+     
+      <archive>/user/maria_dev/lib/java-json.jar#java-json.jar</archive>
+        </sqoop>    
+
+      <ok to="Create_STAGING_CDW_SAPP_TIME" />
+      <error to="kill_job" />
+   </action>
+   
+   <action name="Create_STAGING_CDW_SAPP_TIME">
+      <hive xmlns="uri:oozie:hive-action:0.4">
+        <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/internal_table_time.hive</script>
+      </hive>
+
+      <ok to="Create_CDW_SAPPTIME"/>
+        <error to="fail"/>
+    </action>
+  <kill name="fail">
+        <message> Workflow failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    
+   <action name="Create_CDW_SAPPTIME">
+      <hive xmlns="uri:oozie:hive-action:0.4">
+         <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/cdw_sapp_time.hive</script>
+      </hive>
+    
+      <ok to="Insert_into_Table" />
+      <error to="kill_job" />
+   </action>
+   
+   <action name="Insert_into_Table">
+      <hive xmlns = "uri:oozie:hive-action:0.4">
+         <job-tracker>${jobTracker}</job-tracker>
+         <name-node>${nameNode}</name-node>
+
+         <script>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/copyTimeData.hql</script>
+        
+      </hive>
+    
+      <ok to="end" />
+      <error to="kill_job" />
+   </action>
+   
+   <kill name="kill_job">
+      <message>Job timeJob failed</message>
+   </kill>
+  
+   <end name="end" />
+</workflow-app>

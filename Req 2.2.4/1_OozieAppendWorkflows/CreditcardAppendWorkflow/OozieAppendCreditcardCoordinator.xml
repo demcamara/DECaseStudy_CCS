@@ -1,0 +1,20 @@
+<coordinator-app xmlns = "uri:oozie:coordinator:0.2" name =
+"Creditcard-Coordinator" frequency = "0/10 8-19 ? * 2-6" start = "2018-08-03T06:50Z" end = "2025-04-17T00:45Z" timezone = "UTC" >
+
+   
+   <controls>
+      <timeout>-1</timeout>
+      <concurrency>1</concurrency>
+      <execution>FIFO</execution>
+      <throttle>1</throttle>
+   </controls>
+   
+   <action>
+      <workflow>
+         <app-path>${nameNode}/user/DECaseStudy/Credit_Card_System/OozieWorks/OozieCreditcardAppendWorkflow.xml</app-path>
+         
+
+      </workflow>
+   </action>
+	
+</coordinator-app>
