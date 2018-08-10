@@ -252,12 +252,15 @@
         
       </hive>
     
-      <ok to="end" />
-      <error to="kill_job" />
+       <ok to ="end"/>
+      <error to ="fail"/>
    </action>
    
-   <kill name="kill_job">
-      <message>Job timeJob failed</message>
+   <kill name ="fail">
+      <message>Job failed</message>
    </kill>
+  
+   <end name ="end"/>
+</workflow-app>
 
 
