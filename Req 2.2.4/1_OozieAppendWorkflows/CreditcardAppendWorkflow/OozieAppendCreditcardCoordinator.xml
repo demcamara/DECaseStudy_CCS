@@ -3,7 +3,7 @@
 
    
    <controls>
-      <timeout>-1</timeout>
+      <timeout>1</timeout>
       <concurrency>1</concurrency>
       <execution>FIFO</execution>
       <throttle>1</throttle>
