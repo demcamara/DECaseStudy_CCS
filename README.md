@@ -26,6 +26,7 @@ JDBC Connectivity with RDBMS : Eclipse and MySQL
 
 Eclipse Packages :
 DAO - 
+
 CustomerDAO, 
 TransactionDAO,
 CustomerDAOImpl,
@@ -47,9 +48,9 @@ Name -
 CDW_SAPP 
 
 Tables - 
-CDW_SAPP_CUSTOMER
-CDW_SAPP_CREDITCARD
-CDW_SAPP_BRANCH
+CDW_SAPP_CUSTOMER,
+CDW_SAPP_CREDITCARD,
+CDW_SAPP_BRANCH,
 
 
 --------------------------------------------------------------------------
