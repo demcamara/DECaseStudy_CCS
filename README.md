@@ -7,12 +7,14 @@ COHORT : DATA ENGINEERING
 AUTHOR : MOHAMED CAMARA
 
 OVERVIEW : 
+
 Students are to create a java program that would take user input and fetch a database for records based on user requests. 
 Records must display to the user in an interactive fashion. In the second part of the case study,  students must use big data concepts 
 and tools to import records from that database, both existing and newly added ones into the Hadoop Ecosystem.
 Students will then manage the data by storing them in tables and creating reports. 
 
-Applications: JAVA, JDBC, MySQL, Sqoop, Hive, Oozie 
+Applications: JAVA, JDBC, MySQL, Sqoop, Hive, Oozie.
+
 To run the programs in the following pages, the applications above must be available on an operating system 
 and paths must be created in HDFS where necessary.
 
