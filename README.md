@@ -1,13 +1,13 @@
 # DECaseStudy_CCS
 CREDIT CARD MANAGEMENT SYSTEM - CASE STUDY
-PLATFORM BY PERSCHOLAS - INSTITUTION
+
+INSTITUTION : PLATFORM BY PERSCHOLAS
 
 COHORT : DATA ENGINEERING
 
 AUTHOR : MOHAMED CAMARA
 
-OVERVIEW : 
-
+OVERVIEW 
 Students are to create a java program that would take user input and fetch a database for records based on user requests. 
 Records must display to the user in an interactive fashion. In the second part of the case study,  students must use big data concepts 
 and tools to import records from that database, both existing and newly added ones into the Hadoop Ecosystem.
@@ -26,21 +26,21 @@ JDBC Connectivity with RDBMS : Eclipse and MySQL
 
 Eclipse Packages :
 DAO - 
-CustomerDAO 
-TransactionDAO
-CustomerDAOImpl
-TransactionDAOImpl
+CustomerDAO, 
+TransactionDAO,
+CustomerDAOImpl,
+TransactionDAOImpl,
 
 ModelClass - 
-Customer class 
-Transaction class
+Customer class, 
+Transaction class,
 
 Runner - 
-CustomerRunner
-TransactionRunner 
-SQLQueries 
-Main 
-DBConnection
+CustomerRunner,
+TransactionRunner, 
+SQLQueries,
+Main,
+DBConnection,
 
 MySQL Database :
 Name - 
