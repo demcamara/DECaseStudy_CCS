@@ -25,8 +25,8 @@ Req 2.1.1 - CORE JAVA
 JDBC Connectivity with RDBMS : Eclipse and MySQL
 
 Eclipse Packages :
-DAO - 
 
+DAO's - 
 CustomerDAO, 
 TransactionDAO,
 CustomerDAOImpl,
